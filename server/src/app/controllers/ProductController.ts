@@ -1,24 +1,24 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { ProductService } from "../../domain/services/ProductService";
 import { Validation } from "../../infrastructure/validation/Validation";
-import { body } from "express-validator";
+import { query } from "express-validator";
 
 export class ProductController {
-  private adnService: ProductService;
+  private productService: ProductService;
 
-  constructor(adnService: ProductService) {
-    this.adnService = adnService;
+  constructor(productService: ProductService) {
+    this.productService = productService;
   }
 
   public getProductsValidationRules() {
     return [
-      body("search").notEmpty().withMessage("search is neccesary"),
+      query("search").notEmpty().withMessage("search is neccesary"),
     ];
   }
 
 
 
-  async getProducts(req: Request, res: Response) {
+  async getProducts(req, res: Response) {
     try {
 
       const errors  = Validation.validate(req);
@@ -28,8 +28,8 @@ export class ProductController {
         return;
       }
   
-      const adn = await this.adnService.getProducts(req.body.search);
-      res.status(adn.statusCode).json(adn.body ?? adn.error);
+      const result = await this.productService.getProducts(req.query.search);
+      res.status(result.statusCode).json(result.body.response ?? result.error);
     } catch (error) {
       console.log(error);
       res.status(500).json({ error: error});

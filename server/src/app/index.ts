@@ -5,6 +5,10 @@ import * as swaggerDocument from "./swagger.json";
 import { Validation } from "../infrastructure/validation/Validation";
 import serverless from "serverless-http";
 
+import productRoutes from "./routes/ProductRoutes";
+
+
+
 const app = express();
 const port = 3000;
 
@@ -19,6 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/items", productRoutes);
 
 // Iniciar el servidor
 app.listen(port, () => {

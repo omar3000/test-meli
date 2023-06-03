@@ -4,16 +4,15 @@ import { ProductRepository } from "../repositories/ProductRepository";
 export class ProductService {
   private productRepository: ProductRepository;
 
-  constructor(adnRepository: ProductRepository) {
-    this.productRepository = adnRepository;
+  constructor(productRepository: ProductRepository) {
+    this.productRepository = productRepository;
   }
 
 
   async getProducts(query:string): Promise<HttpResponse> {
 
-    const products = await this.productRepository.getProducts(query);
-
-    return {statusCode: 200, body: { "results": products }};
+    const response = await this.productRepository.getProducts(query);
+    return {statusCode: 200, body: { response }};
   }
 
 }

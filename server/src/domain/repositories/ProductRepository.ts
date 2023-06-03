@@ -1,5 +1,5 @@
-import { Product } from "../models/Product";
+import { Results } from "../models/Results";
 
 export interface ProductRepository {
-  getProducts(query: string): Promise<Product | null>;
+  getProducts(query: string): Promise<Results | null>;
 }
