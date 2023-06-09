@@ -1,0 +1,21 @@
+.Breadcrumb{
+    margin-top:-1.8rem;
+    margin-bottom:1rem
+}
+
+.Breadcrumb__list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+    color:var(--color-neutral-400);
+    font-size:.8rem
+}
+
+.Breadcrumb__list__item+li:before{
+    content:">";
+    margin-right:.5rem
+}
+
+.Breadcrumb__list__item:last-child{
+    font-weight:700
+}
