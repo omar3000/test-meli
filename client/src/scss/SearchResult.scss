@@ -1,0 +1,64 @@
+.SearchResult {
+  --searchResult-offset: 1rem;
+
+  &__list {
+    &__item {
+      display: grid;
+      grid-template-columns: 15% auto 15%;
+      column-gap: 1.5rem;
+
+      &:not(:last-child) {
+        margin-bottom: var(--searchResult-offset);
+        border-bottom: 1px solid var(--color-neutral-300);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      &__picture {
+        margin-bottom: var(--searchResult-offset);
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      &__information {
+        margin-top: 1rem;
+
+        font-weight: 400;
+
+        &__price {
+          display: flex;
+          align-items: flex-end;
+          gap: 0.5rem;
+
+          font-size: 1.2rem;
+          font-weight: 500;
+
+          span {
+            padding: 3px;
+            border-radius: 50%;
+
+            background-color: var(--color-feedback-success);
+            color: var(--color-neutral-800);
+            font-size: 0.7rem;
+          }
+        }
+      }
+
+      &__location {
+        margin-top: 1.5rem;
+        color: var(--color-neutral-500);
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .SearchResult__list__item__information {
+    padding-right: 8rem;
+  }
+}
