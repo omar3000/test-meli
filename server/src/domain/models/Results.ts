@@ -4,6 +4,11 @@ export interface Results {
     items: Array<Items>;
 }
 
+export interface ProductDetail  {
+    author: Author;
+    item: ItemDetail;
+}
+
 export interface Author {
     name: string;
     lastname: string;
@@ -16,6 +21,11 @@ export interface Items {
     condition: string;
     free_shipping: boolean; 
     price: Price;
+}
+
+export interface ItemDetail extends Items {
+    sold_quantity: number;
+    description: string;
 }
 
 export interface Price  {

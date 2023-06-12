@@ -15,5 +15,10 @@ router.get(
   productController.getProducts.bind(productController)
 );
 
+router.get(
+  "/:id",
+  productController.getProductDetailValidationRules(),
+  productController.getProductDetail.bind(productController)
+);
 
 export default router;

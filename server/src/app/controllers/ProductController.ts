@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { ProductService } from "../../domain/services/ProductService";
 import { Validation } from "../../infrastructure/validation/Validation";
-import { query } from "express-validator";
+import { query, param } from "express-validator";
 
 export class ProductController {
   private productService: ProductService;
@@ -16,7 +16,11 @@ export class ProductController {
     ];
   }
 
-
+  public getProductDetailValidationRules() {
+    return [
+      param("id").notEmpty().withMessage("id is neccesary"),
+    ];
+  }
 
   async getProducts(req, res: Response) {
     try {
@@ -36,4 +40,23 @@ export class ProductController {
     }
   }
   
+  async getProductDetail(req, res: Response) {
+    try {
+
+      const errors  = Validation.validate(req);
+
+      if (errors) {
+        res.status(422).send({errors: errors});
+        return;
+      }
+  
+      const result = await this.productService.getProductDetail(req.params.id);
+      res.status(result.statusCode).json(result.body.response ?? result.error);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: error});
+    }
+  }
+  
+
 }

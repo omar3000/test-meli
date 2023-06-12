@@ -1,4 +1,4 @@
-service: mi-aplicacion-node
+service: mi-aplicacion-node-meli
 provider:
   name: aws
   runtime: nodejs16.x

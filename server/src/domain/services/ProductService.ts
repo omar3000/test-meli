@@ -8,11 +8,15 @@ export class ProductService {
     this.productRepository = productRepository;
   }
 
-
   async getProducts(query:string): Promise<HttpResponse> {
 
     const response = await this.productRepository.getProducts(query);
     return {statusCode: 200, body: { response }};
   }
 
+  async getProductDetail(id:string): Promise<HttpResponse> {
+
+    const response = await this.productRepository.getProductDetail(id);
+    return {statusCode: 200, body: { response }};
+  }
 }

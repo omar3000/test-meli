@@ -10,13 +10,37 @@
       "/items?search={search]": {
         "get": {
           "tags": [
-            "parkings"
+            "meli"
           ],
           "summary": "Obtiene una busqueda de la api de meli",
           "parameters": [
             {
               "name": "search",
               "in": "query",
+              "description": "es necesario para este filtro",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/items/{id}": {
+        "get": {
+          "tags": [
+            "meli"
+          ],
+          "summary": "Obtiene el detalle de un producto de la api de meli",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
               "description": "es necesario para este filtro",
               "required": true,
               "schema": {

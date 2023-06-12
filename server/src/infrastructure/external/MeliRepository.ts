@@ -1,5 +1,5 @@
 import { ProductRepository } from "../../domain/repositories/ProductRepository";
-import { Results, Items, Author } from "../../domain/models/Results";
+import { Results, Items, Author, ProductDetail, ItemDetail } from "../../domain/models/Results";
 import axios from "axios";
 import dotenv from "dotenv";
 
@@ -18,7 +18,6 @@ export class MeliRepository implements ProductRepository {
       });
 
       const { data } = response;
-      console.log(data);
       const items: Array<Items> = data.results.map((item: any) => ({
         id: item.id,
         title: item.title,
@@ -50,7 +49,53 @@ export class MeliRepository implements ProductRepository {
     } catch (error) {
       return null;
     }
-
   }
+
+  async getProductDetail(id: string): Promise<ProductDetail | null> {
+
+    try {
+      const [itemResponse, descriptionResponse]: any = await Promise.allSettled([axios.get(`${process.env.API_MELI}/items/${id}`),axios.get(`${process.env.API_MELI}/items/${id}/description`)]);
+
+      const priceFormatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 2,
+      });
+
+      const data = itemResponse.value.data;
+      const description = descriptionResponse.value.data.plain_text; 
+
+      const item: ItemDetail = {
+        id: data.id,
+        title: data.title,
+        price: {
+          currency: data.currency_id,
+          amount: data.price,
+          decimals: Number(priceFormatter.format(data.price))
+        },
+        picture: data.thumbnail,
+        condition: data.condition,
+        free_shipping: data?.shipping?.free_shipping,
+        sold_quantity: data.sold_quantity,
+        description: description 
+      };  
+
+      const author: Author = {
+        name: "Omar",
+        lastname: "Franco"
+      };
+
+      const results: ProductDetail = {
+        author,
+        item
+      };
+
+      return results;
+
+    } catch (error) {
+      return null;
+    }
+  }
+
 }
 
