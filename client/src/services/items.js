@@ -1,6 +1,7 @@
 import { json } from "react-router-dom";
 
 export const loadSearchItems = async ({ request }) => {
+  console.log(request);
   const baseUrl = new URL(request.url);
   const query = baseUrl.searchParams.get("search");
 
